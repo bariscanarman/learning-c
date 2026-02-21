@@ -61,8 +61,27 @@ int main() {
                break;
 
             case 2:
-               // Not implemented yet
-               printf("\n(Display function is coming soon...)\n");
+               // Check if there are any books in the library
+               if(book_count == 0) {
+                printf("\nThe library is currently empty.Please add some books first!");
+               }
+               else {
+                // Loop through the array and display each book's details
+                printf("\n--- List of All Books ---\n");
+
+                // We iterate from index 0 up to book_count - 1
+                for(int i = 0; i < book_count; i++) {
+                    printf("Book #%d\n", i + 1);
+                    printf("  ID     : %d\n", library[i].book_id);
+                    printf("  Title  : %s\n", library[i].title);
+                    printf("  Author : %s\n", library[i].author);
+                    printf("  Price  : $%.2lf\n", library[i].price);
+                    printf("------------------------\n");
+
+                }
+
+               }
+
                break;
 
             case 3:

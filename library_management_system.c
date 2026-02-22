@@ -13,7 +13,11 @@ struct Book {
 
 };
 
-int main() {
+// Function Prototypes
+void add_book(struct Book library[], int *count);
+void display_books(struct Book library[], int count);
+
+int main () {
 
     // Creating an array of structures to act as our database
     struct Book library[MAX_BOOKS];
@@ -33,55 +37,13 @@ int main() {
 
         switch (choice) {
             case 1:
-               // Check if the library is full before adding
-               if (book_count >= MAX_BOOKS) {
-                 printf("Error: Library is full! Cannot add more books.\n");
-                 break;
-              }
-
-               printf("\n--- Enter Book Details ---\n");
-
-               printf("Enter Book ID: ");
-               scanf("%d", &library[book_count].book_id);
-
-               // "%[^\n]" tells scanf to read everything including spaces until the Enter key is pressed
-               // The space before '%' consumes the leftover newlinr character from the previous scanf
-               printf("Enter Book Title: ");
-               scanf(" %[^\n]", library[book_count].title);
-
-               printf("Enter Book Author: ");
-               scanf(" %[^\n]", library[book_count].author);
-
-               printf("Enter Book Price: ");
-               scanf("%lf", &library[book_count].price);
-
-               // Increase the total number of books
-               book_count++;
-               printf("Succes: Book added to the library!\n");
+               // Passing the array and the momory address of book_count
+               add_book(library, &book_count);
                break;
 
             case 2:
-               // Check if there are any books in the library
-               if(book_count == 0) {
-                printf("\nThe library is currently empty.Please add some books first!");
-               }
-               else {
-                // Loop through the array and display each book's details
-                printf("\n--- List of All Books ---\n");
-
-                // We iterate from index 0 up to book_count - 1
-                for(int i = 0; i < book_count; i++) {
-                    printf("Book #%d\n", i + 1);
-                    printf("  ID     : %d\n", library[i].book_id);
-                    printf("  Title  : %s\n", library[i].title);
-                    printf("  Author : %s\n", library[i].author);
-                    printf("  Price  : $%.2lf\n", library[i].price);
-                    printf("------------------------\n");
-
-                }
-
-               }
-
+               // Passing the array and the value of book_count
+               display_books(library, book_count);
                break;
 
             case 3:
@@ -96,5 +58,51 @@ int main() {
 
         return 0;
 
+    }
+
+    // Function to add a book
+    void add_book(struct Book library[], int *count) {
+        // Dereference the pointer to check the actual value
+        if (*count >= MAX_BOOKS) {
+            printf("Error: Library is full! Cannot add more books.\n");
+            return; // Early exit
+        }
+
+        printf("\n--- Enter Book Details ---\n");
+
+        printf("Enter Book ID: ");
+        scanf("%d", &library[*count].book_id);
+
+        printf("Enter Book Title: ");
+        scanf(" %[^\n]", library[*count].title);
+
+        printf("Enter Book Author: ");
+        scanf(" %[^\n]", library[*count].author);
+
+        printf("Enter Book Price: ");
+        scanf("%lf", &library[*count].price);
+
+        // Dereference the pointer to increment the original book_count in main()
+        (*count)++;
+
+        printf("Succes: Book added to the library!\n");
+    }
+
+    // Function to display books
+    void display_books(struct Book library[], int count) {
+        if (count == 0) {
+            printf("\nThe library is currently empty.Please add some books first!\n");
+            return;
+        }
+
+        printf("\n--- List of All Books ---\n");
+        for (int i = 0;i < count; i++) {
+            printf("Book #%d\n", i + 1);
+            printf("  ID     : %d\n", library[i].book_id);
+            printf("  Title  : %s\n", library[i].title);
+            printf("  Author : %s\n", library[i].author);
+            printf("  Price  : %.2lf\n",library[i].price);
+            printf("-----------------------\n");
+        }
     }
 

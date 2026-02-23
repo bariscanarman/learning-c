@@ -17,6 +17,8 @@ struct Book {
 void add_book(struct Book library[], int *count);
 void display_books(struct Book library[], int count);
 void search_book(struct Book library[], int count);
+void save_data(struct Book library[], int count);
+void load_data(struct Book library[], int *count);
 
 int main () {
 
@@ -32,8 +34,8 @@ int main () {
         printf("\n=== Library Management System ===\n\n");
         printf("1. Add a New Book\n");
         printf("2. Display All Books\n");
-        printf("3. Search for a Book\n"); // New Option
-        printf("4. Exit\n");
+        printf("3. Search for a Book\n");
+        printf("4. Save and Exit\n"); // New Option
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -54,6 +56,8 @@ int main () {
                break;
 
             case 4:
+               // Save data to the program before exiting the program
+               save_data(library, book_count);
                printf("Exiting the system. Goodbye\n");
                return 0;
 
@@ -145,6 +149,25 @@ int main () {
             found = 1;
         }
       }
+    
+    void save_data(struct Book library[], int count) {
+       // Open the file in 'wb' (write binary) mode
+       FILE *file_ptr = fopen(FILE_NAME, "wb");
+       if(file_ptr == NULL) {
+        printf("Error: Could not open file for writing");
+        return;
+       }
+      
+       // First save the total number of books we have
+       fwrite(&count, sizeof(int), 1, file_ptr);
+
+       // Second, save the entire array of structures in one go
+       fwrite(library, sizeof(struct Book), count, file_ptr);
+
+       // Always close the file when done to prevent memory leaks or data loss
+       fclose(file_ptr);
+       printf("Succes: Data saved to %s succesfully!\n", FILE_NAME);
+    }
 
       // If the loop finishes and found is still 0, print a not-found message
       if(found == 0) {

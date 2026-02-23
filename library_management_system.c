@@ -178,6 +178,15 @@ int main () {
             printf("Notice: No existing data file found. Starting with an empty library.\n");
             return;
         }
+
+        // First read the total number of books and store it in our count pointer
+        fread(count, sizeof(int), 1, file_ptr);
+
+        // Second, read the actual book data directly into our library array
+        fread(library, sizeof(struct Book), *count, file_ptr);
+
+        fclose(file_ptr);
+        printf("Succes: Loaded %d books from %s!\n", *count, FILE_NAME);
        }
 
       // If the loop finishes and found is still 0, print a not-found message

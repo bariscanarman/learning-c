@@ -169,6 +169,17 @@ int main () {
        printf("Succes: Data saved to %s succesfully!\n", FILE_NAME);
     }
 
+       // Function to load books from a binary file
+       void load_data(struct Book library[], int *count) {
+        // Open the file in "rb" (read binary 'some self note for learning') mode
+        FILE *file_ptr = fopen(FILE_NAME, "rb");
+        if (file_ptr == NULL) {
+            // If the file does not exist, it's probably the first time running the program
+            printf("Notice: No existing data file found. Starting with an empty library.\n");
+            return;
+        }
+       }
+
       // If the loop finishes and found is still 0, print a not-found message
       if(found == 0) {
         printf("No books found matching '%s'.\n", search_term);

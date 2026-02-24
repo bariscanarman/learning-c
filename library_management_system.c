@@ -3,6 +3,7 @@
 
 // Defining the maximum capacity of our library
 #define MAX_BOOKS 100
+#define FILE_NAME "library_data.dat"
 
 // Defining the Structure for a Book
 struct Book {
@@ -17,6 +18,8 @@ struct Book {
 void add_book(struct Book library[], int *count);
 void display_books(struct Book library[], int count);
 void search_book(struct Book library[], int count);
+void save_data(struct Book library[], int count);
+void load_data(struct Book library[], int *count);
 
 int main () {
 
@@ -32,8 +35,8 @@ int main () {
         printf("\n=== Library Management System ===\n\n");
         printf("1. Add a New Book\n");
         printf("2. Display All Books\n");
-        printf("3. Search for a Book\n"); // New Option
-        printf("4. Exit\n");
+        printf("3. Search for a Book\n");
+        printf("4. Save and Exit\n"); // New Option
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -54,6 +57,8 @@ int main () {
                break;
 
             case 4:
+               // Save data to the program before exiting the program
+               save_data(library, book_count);
                printf("Exiting the system. Goodbye\n");
                return 0;
 
@@ -145,11 +150,52 @@ int main () {
             found = 1;
         }
       }
-
+    
+    
       // If the loop finishes and found is still 0, print a not-found message
       if(found == 0) {
         printf("No books found matching '%s'.\n", search_term);
       }
     }
+
+    void save_data(struct Book library[], int count) {
+       // Open the file in 'wb' (write binary) mode
+       FILE *file_ptr = fopen(FILE_NAME, "wb");
+       if(file_ptr == NULL) {
+        printf("Error: Could not open file for writing");
+        return;
+       }
+      
+       // First save the total number of books we have
+       fwrite(&count, sizeof(int), 1, file_ptr);
+
+       // Second, save the entire array of structures in one go
+       fwrite(library, sizeof(struct Book), count, file_ptr);
+
+       // Always close the file when done to prevent memory leaks or data loss
+       fclose(file_ptr);
+       printf("Succes: Data saved to %s succesfully!\n", FILE_NAME);
+    }
+
+       // Function to load books from a binary file
+       void load_data(struct Book library[], int *count) {
+        // Open the file in "rb" (read binary 'some self note for learning') mode
+        FILE *file_ptr = fopen(FILE_NAME, "rb");
+        if (file_ptr == NULL) {
+            // If the file does not exist, it's probably the first time running the program
+            printf("Notice: No existing data file found. Starting with an empty library.\n");
+            return;
+        }
+
+        // First read the total number of books and store it in our count pointer
+        fread(count, sizeof(int), 1, file_ptr);
+
+        // Second, read the actual book data directly into our library array
+        fread(library, sizeof(struct Book), *count, file_ptr);
+
+        fclose(file_ptr);
+        printf("Succes: Loaded %d books from %s!\n", *count, FILE_NAME);
+       }
+
        
 

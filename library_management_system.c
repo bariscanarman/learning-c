@@ -3,14 +3,16 @@
 
 // Defining the maximum capacity of our library
 #define MAX_BOOKS 100
+// Define the filename as a constant to avoid magic strings
 #define FILE_NAME "library_data.dat"
 
-// Defining the Structure for a Book
+// Updated Structure with a new state
 struct Book {
     int book_id;
-    char title[50];   // Allocate 50 just to be safe
+    char title[50];   // Allocate 50 just to be safe 
     char author[50];  // Same here
     double price;
+    int is_borrowed; // Flag: 0 = Available, 1 = Borrowed
 
 };
 
@@ -18,6 +20,8 @@ struct Book {
 void add_book(struct Book library[], int *count);
 void display_books(struct Book library[], int count);
 void search_book(struct Book library[], int count);
+void borrow_book(struct Book library[], int count); // New borrowing option
+void return_book(struct Book library[], int count); // New returning option
 void save_data(struct Book library[], int count);
 void load_data(struct Book library[], int *count);
 
@@ -30,13 +34,16 @@ int main () {
     int book_count = 0;
     int choice;
 
+    // Load existing data from the file as soon as the program starts
+    load_data(library, &book_count);
+
     // Main menu loop
     while (1) {
         printf("\n=== Library Management System ===\n\n");
         printf("1. Add a New Book\n");
         printf("2. Display All Books\n");
         printf("3. Search for a Book\n");
-        printf("4. Save and Exit\n"); // New Option
+        printf("4. Save and Exit\n"); // Updated Option
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -158,6 +165,7 @@ int main () {
       }
     }
 
+    // Function to save books to a binary file
     void save_data(struct Book library[], int count) {
        // Open the file in 'wb' (write binary) mode
        FILE *file_ptr = fopen(FILE_NAME, "wb");

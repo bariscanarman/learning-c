@@ -43,7 +43,9 @@ int main () {
         printf("1. Add a New Book\n");
         printf("2. Display All Books\n");
         printf("3. Search for a Book\n");
-        printf("4. Save and Exit\n"); // Updated Option
+        printf("4. Borrow a Book\n"); // New Option
+        printf("5. Return a Book\n"); // New Option
+        printf("6. Save and Exit\n"); // Shifted Option
         printf("Enter your choice: ");
         scanf("%d", &choice);
 

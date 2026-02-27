@@ -66,6 +66,14 @@ int main () {
                break;
 
             case 4:
+               borrow_book(library, book_count);
+               break;
+
+            case 5:
+               return_book(library, book_count);
+               break;
+
+            case 6:
                // Save data to the program before exiting the program
                save_data(library, book_count);
                printf("Exiting the system. Goodbye\n");
@@ -103,9 +111,11 @@ int main () {
         printf("Enter Book Price: ");
         scanf("%lf", &library[*count].price);
 
+        // Initialize the new book as available
+        library[*count].is_borrowed = 0;
+
         // Dereference the pointer to increment the original book_count in main()
         (*count)++;
-
         printf("Succes: Book added to the library!\n");
     }
 
@@ -117,12 +127,15 @@ int main () {
         }
 
         printf("\n--- List of All Books ---\n\n");
-        for (int i = 0;i < count; i++) {
+        for (int i = 0; i < count; i++) {
             printf("Book #%d\n", i + 1);
             printf("  ID     : %d\n", library[i].book_id);
             printf("  Title  : %s\n", library[i].title);
             printf("  Author : %s\n", library[i].author);
             printf("  Price  : %.2lf\n",library[i].price);
+
+            // Operator to print satus nicely
+            printf(" Status : %s\n", library[i].is_borrowed ? "Borrowed" : "Available");
             printf("-----------------------\n");
         }
     }
@@ -146,14 +159,11 @@ int main () {
 
        // Loop through the entire library
        for(int i = 0; i < count; i++) {
-        // strstr checks if 'search_term' is a substring of 'library[i].title'
-        // If it is not NULL, it means a match is found
         if (strstr(library[i].title, search_term) != NULL) {
-            printf("  ID     : %d\n", library[i].book_id);
-            printf("  Title  : %s\n", library[i].title);
-            printf("  Author : %s\n", library[i].author);
-            printf("  Price  : %.2lf\n",library[i].price);
-            printf("-----------------------\n");
+            printf("  ID     : %d | Title: %s | Status: %s\n", 
+                   library[i].book_id, 
+                   library[i].title, 
+                   library[i].is_borrowed ? "Borrowed" : "Available");
 
             // Set flag to 1 because we found a book
             found = 1;

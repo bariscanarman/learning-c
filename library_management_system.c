@@ -195,6 +195,7 @@ int main () {
                     library[i].is_borrowed = 1; // Mark as borrowed
                     printf("Success: You have borrowed '%s'.\n", library[i].title);
                 }
+
                 else {
                     printf("Sorry: '%s' is currently borrowed by someone else.\n", library[i].title);
                 }
@@ -203,6 +204,35 @@ int main () {
         }
 
         // If the loop finishes without returning, the ID wasn't found
+        printf("Error: No book found with ID %d.\n", target_id);
+    }
+
+    // New Function: Return a book by ID
+    void return_book(struct Book library[], int count) {
+        if (count == 0) {
+            printf("\nThe library is currently empty.\n");
+            return;
+        }
+
+        int target_id;
+        printf("\nEnter the ID of the book you want to return: ");
+        scanf("%d", &target_id);
+
+        for (int i = 0; i < count; i++) {
+            if (library[i].book_id == target_id) {
+                // Book found! Check its status
+                if (library[i].is_borrowed == 1) {
+                    library[i].is_borrowed = 0; // Mark as available
+                    printf("Success: You have returned '%s'. Thank You!\n", library[i].title);
+                }
+
+                else {
+                    printf("Notice: '%s' was not borrowed. It is already in the library.\n", library[i].title);
+                }
+                return;
+            }
+        }
+
         printf("Error: No book found with ID %d.\n", target_id);
     }
 

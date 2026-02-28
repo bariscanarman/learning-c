@@ -20,8 +20,9 @@ struct Book {
 void add_book(struct Book library[], int *count);
 void display_books(struct Book library[], int count);
 void search_book(struct Book library[], int count);
-void borrow_book(struct Book library[], int count); // New borrowing option
-void return_book(struct Book library[], int count); // New returning option
+void borrow_book(struct Book library[], int count); 
+void return_book(struct Book library[], int count); 
+void delete_book(struct Book lbirary[], int *count); // New function prototype
 void save_data(struct Book library[], int count);
 void load_data(struct Book library[], int *count);
 
@@ -43,8 +44,9 @@ int main () {
         printf("1. Add a New Book\n");
         printf("2. Display All Books\n");
         printf("3. Search for a Book\n");
-        printf("4. Borrow a Book\n"); // New Option
-        printf("5. Return a Book\n"); // New Option
+        printf("4. Borrow a Book\n"); 
+        printf("5. Return a Book\n");
+        printf("6. Delete a Book\n"); // New Option 
         printf("6. Save and Exit\n"); // Shifted Option
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -74,6 +76,11 @@ int main () {
                break;
 
             case 6:
+               // We pass the memory address of book_count because we bill decrease it
+               delete_book(library, &book_count);
+               break;
+
+            case 7:
                // Save data to the program before exiting the program
                save_data(library, book_count);
                printf("Exiting the system. Goodbye\n");
@@ -256,15 +263,17 @@ int main () {
        printf("Succes: Data saved to %s succesfully!\n", FILE_NAME);
     }
 
-       // Function to load books from a binary file
-       void load_data(struct Book library[], int *count) {
+    // Function to load books from a binary file
+    void load_data(struct Book library[], int *count) {
         // Open the file in "rb" (read binary 'some self note for learning') mode
         FILE *file_ptr = fopen(FILE_NAME, "rb");
         if (file_ptr == NULL) {
             // If the file does not exist, it's probably the first time running the program
             printf("Notice: No existing data file found. Starting with an empty library.\n");
+        
             return;
         }
+        
 
         // First read the total number of books and store it in our count pointer
         fread(count, sizeof(int), 1, file_ptr);
@@ -275,6 +284,15 @@ int main () {
         fclose(file_ptr);
         printf("Succes: Loaded %d books from %s!\n", *count, FILE_NAME);
        }
+
+       // New Function Implementation
+    void delete_book(struct Book library[], int *count) {
+        // Early exit if the library is empty
+        if(*count == 0) {
+            printf("\nThe library is currently empty. nothing to delete.\n");
+            return;
+        }
+    }
 
        
 

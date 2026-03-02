@@ -292,7 +292,10 @@ int main () {
             printf("\nThe library is currently empty. nothing to delete.\n");
             return;
         }
+
+        int target_id;
+    printf("\nEnter the ID of the book you want to delete: ");
+    scanf("%d", &target_id);
+
+    
     }
-
-       
-

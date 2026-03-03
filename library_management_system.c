@@ -297,5 +297,29 @@ int main () {
     printf("\nEnter the ID of the book you want to delete: ");
     scanf("%d", &target_id);
 
-    
+    // Linear search to find the book
+    for(int i = 0;i < *count; i++) {
+        if (library[i].book_id == target_id) {
+
+            // Check if the book is currently borrowed
+            if (library[i].is_borrowed == 1) {
+                printf("Error: Cannot delete '%s' because it is currently borrowed!\n", library[i].title);
+                return;
+            }
+
+            // Book found and available. Now shift all elements to the left to close the gap
+            for (int j = i; j < *count - 1; j++) {
+                library[j] = library[j + 1]; // Overwrite the current struct with the next one
+            }
+
+            // Decrease the total number of books using pointer dereference
+            (*count) --;
+
+            printf("Succes: Book with ID %d has been succesfully deleted.\n", target_id);
+            return; // Exit the function after successful deletion
+        }
+    }
+
+    // If the loop finishes without returning, the ID wasn't found
+    printf("Error: No book found with ID %d.\n", target_id);
     }

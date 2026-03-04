@@ -342,4 +342,29 @@ int main () {
         int target_id;
         printf("\nEnter the ID of the book you want to update: ");
         scanf("%d", &target_id);
+
+        // Linear search to find the book
+        for (int i = 0; i < count; i++) {
+            if (library[i].book_id == target_id) {
+
+                // Book found! Now overwrite the existing data
+                printf("\n--- Book found! Enter New Details ---\n");
+
+                // We do not update the ID, it acts as a primary key
+                printf("Enter New Title: ");
+                scanf("%[^\n]", library[i].title);
+
+                printf("Enter New Author: ");
+                scanf("%[^\n]", library[i].author);
+
+                printf("Enter New Price: ");
+                scanf("%lf", &library[i].price);
+
+                printf("Succes: Book details pdated succesfully!\n");
+                return; // Exit the function after successful update
+            }
+        }
+
+        // If the loop finishes without returning, the ID wasn't found
+        printf("Error: No book found with ID %d.\n", target_id);
     }

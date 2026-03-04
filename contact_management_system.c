@@ -16,5 +16,31 @@ struct Contact *head = NULL;
 void add_contact();
 
 int main() {
-    
+
+        int choice;
+
+    while (1) {
+        printf("\n=== Contact Management System ===\n");
+        printf("1. Add a New Contact\n");
+        printf("2. Exit\n");
+        printf("Enter your choice");
+        scanf("%d", &choice);
+
+        switch (choice) {
+
+            case 1:
+               add_contact();
+               break;
+
+            case 2:
+               printf("Exiting...Goodbye!\n");
+               return 0;
+
+            default:
+               printf("Error: Invalid choice. Please try again.\n");
+    }
+}
+
+ return 0;
+ 
 }

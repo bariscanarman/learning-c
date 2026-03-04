@@ -25,6 +25,7 @@ void return_book(struct Book library[], int count);
 void delete_book(struct Book lbirary[], int *count); // New function prototype
 void save_data(struct Book library[], int count);
 void load_data(struct Book library[], int *count);
+void update_book(struct Book library[], int count);
 
 int main () {
 
@@ -46,8 +47,9 @@ int main () {
         printf("3. Search for a Book\n");
         printf("4. Borrow a Book\n"); 
         printf("5. Return a Book\n");
-        printf("6. Delete a Book\n"); // New Option 
-        printf("6. Save and Exit\n"); // Shifted Option
+        printf("6. Delete a Book\n");
+        printf("7. Update a Book\n"); // New Option 
+        printf("8. Save and Exit\n"); // Shifted Option
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -81,6 +83,11 @@ int main () {
                break;
 
             case 7:
+               // We pass the value of count, because updating a book doesn't change the total number of books
+               update_book(library, book_count);
+               break;
+
+            case 8:
                // Save data to the program before exiting the program
                save_data(library, book_count);
                printf("Exiting the system. Goodbye\n");
@@ -322,4 +329,17 @@ int main () {
 
     // If the loop finishes without returning, the ID wasn't found
     printf("Error: No book found with ID %d.\n", target_id);
+    }
+
+    // New Function Implementation
+    void update_book(struct Book library[], int count) {
+        // Early exit if the library is empty
+        if (count == 0) {
+            printf("\nThe library is currently empty. Nothing to update.\n");
+            return;
+        }
+
+        int target_id;
+        printf("\nEnter the ID of the book you want to update: ");
+        scanf("%d", &target_id);
     }

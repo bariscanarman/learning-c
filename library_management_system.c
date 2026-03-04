@@ -26,6 +26,7 @@ void delete_book(struct Book lbirary[], int *count); // New function prototype
 void save_data(struct Book library[], int count);
 void load_data(struct Book library[], int *count);
 void update_book(struct Book library[], int count);
+void sort_books(struct Book library[], int count);
 
 int main () {
 
@@ -48,8 +49,9 @@ int main () {
         printf("4. Borrow a Book\n"); 
         printf("5. Return a Book\n");
         printf("6. Delete a Book\n");
-        printf("7. Update a Book\n"); // New Option 
-        printf("8. Save and Exit\n"); // Shifted Option
+        printf("7. Update a Book\n");
+        printf("8. Sort Books by Title\n"); // New Option
+        printf("9. Save and Exit\n"); // Shifted Option
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -88,6 +90,11 @@ int main () {
                break;
 
             case 8:
+               // We pass the VALUE of count, because sorting doesn't change the total number of books
+               sort_books(library, book_count);
+               break;
+
+            case 9:
                // Save data to the program before exiting the program
                save_data(library, book_count);
                printf("Exiting the system. Goodbye\n");
@@ -331,7 +338,6 @@ int main () {
     printf("Error: No book found with ID %d.\n", target_id);
     }
 
-    // New Function Implementation
     void update_book(struct Book library[], int count) {
         // Early exit if the library is empty
         if (count == 0) {
@@ -367,4 +373,27 @@ int main () {
 
         // If the loop finishes without returning, the ID wasn't found
         printf("Error: No book found with ID %d.\n", target_id);
+    }
+
+    // New Function Implementation
+    void sort_books(struct Book library[], int count) {
+        if (count < 2) {
+            printf("\nNot enough books to sort. Add more books first.\n");
+            return;
+        }
+
+        // Bubble Sort Algorithm
+        for (int i = 0; i < count - 1; i++) {
+            for (int j = 0; j < count - i - 1; j++) {
+                // strcmp() compares two strings. If it returns > 0, the first string is alphabetically after the second
+                if (strcmp(library[j].title, library[j + 1].title > 0)) {
+                    // Swaping the entire struct using a temporary variable
+                    struct Book temp_book = library[j];
+                    library[j] = library[j + 1];
+                    library[j + 1] = temp_book;
+                }
+            }
+        }
+
+        printf("Succes: Books have been sorted alphabetically by their titles!\n");
     }

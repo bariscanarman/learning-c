@@ -23,8 +23,8 @@ int main() {
         printf("\n=== Contact Management System ===\n");
         printf("1. Add a New Contact\n");
         printf("2. Exit\n");
-        printf("Enter your choice");
-        scanf("%d", &choice);
+        printf("Enter your choice\n");
+        scanf(" %d", &choice);
 
         switch (choice) {
 
@@ -54,4 +54,19 @@ void add_contact() {
         printf("Fatal Error: Memory allocation failed. RAM is full!\n");
         return; // Early exit to prevent crash
     }
+
+    // Getting data from the user
+    printf("\n--- Enter Contact Details ---\n");
+
+    printf("Enter Name: ");
+    scanf(" %[^\n]", new_contact->name);
+
+    printf("Enter Phone: ");
+    scanf(" %[^\n], new_contact->phone");
+
+    // Linking the new contact to the front of our linked list
+    new_contact->next = head;
+    head = new_contact;
+
+    printf("Succes: '%s' has been added to the phonebook!\n", new_contact->name);
 }

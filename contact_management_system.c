@@ -44,3 +44,14 @@ int main() {
  return 0;
  
 }
+
+void add_contact() {
+    // Requesting exact memory from the RAM for one Contact dynamically
+    struct Contact *new_contact = (struct Contact *)malloc(sizeof(struct Contact));
+
+    // Checking if the memory was successfully allocated by the OS
+    if (new_contact == NULL) {
+        printf("Fatal Error: Memory allocation failed. RAM is full!\n");
+        return; // Early exit to prevent crash
+    }
+}

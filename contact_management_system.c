@@ -69,4 +69,6 @@ void add_contact() {
     head = new_contact;
 
     printf("Succes: '%s' has been added to the phonebook!\n", new_contact->name);
+
+    // Updated
 }

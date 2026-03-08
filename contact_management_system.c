@@ -14,6 +14,7 @@ struct Contact *head = NULL;
 
 // Function Prototypes
 void add_contact();
+void display_contacts(); // New function prototype
 
 int main() {
 
@@ -22,7 +23,8 @@ int main() {
     while (1) {
         printf("\n=== Contact Management System ===\n");
         printf("1. Add a New Contact\n");
-        printf("2. Exit\n");
+        printf("2. Display Contacts\n");
+        printf("3. Exit\n");
         printf("Enter your choice\n");
         scanf(" %d", &choice);
 
@@ -33,6 +35,10 @@ int main() {
                break;
 
             case 2:
+               add_contact();
+               break;
+
+            case 3:
                printf("Exiting...Goodbye!\n");
                return 0;
 
@@ -69,6 +75,4 @@ void add_contact() {
     head = new_contact;
 
     printf("Succes: '%s' has been added to the phonebook!\n", new_contact->name);
-
-    // Updated
 }

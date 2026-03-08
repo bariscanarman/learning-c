@@ -64,13 +64,18 @@ void add_contact() {
     // Getting data from the user
     printf("\n--- Enter Contact Details ---\n");
 
+    // Safe input using fgets()
     printf("Enter Name: ");
-    while(getchar() != '\n'); 
-    scanf(" %[^\n]", new_contact->name);
+    fgets(new_contact->name, sizeof(new_contact->name), stdin);
 
+    // Removing the trailing newline character added by fgets
+    new_contact->name[strcspn(new_contact->name, "\n")] = '\0';
+
+    // Same here
     printf("Enter Phone: ");
-    while(getchar() != '\n'); 
-    scanf(" %[^\n], new_contact->phone");
+    fgets(new_contact->phone, sizeof(new_contact->phone), stdin);
+
+    new_contact->phone[strcspn(new_contact->phone, "\n")] = '\0';
 
     // Linking the new contact to the front of our linked list
     new_contact->next = head;

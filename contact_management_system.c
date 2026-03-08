@@ -16,6 +16,12 @@ struct Contact *head = NULL;
 void add_contact();
 void display_contacts(); // New function prototype
 
+// A utility funcion to safely clear the input buffer
+void clear_input_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF); // EOF = End Of File (No file to read)
+}
+
 int main() {
 
         int choice;
@@ -60,6 +66,9 @@ void add_contact() {
         printf("Fatal Error: Memory allocation failed. RAM is full!\n");
         return; // Early exit to prevent crash
     }
+
+    // Clear the leftover '\n' from the main menu's scanf
+    clear_input_buffer();
 
     // Getting data from the user
     printf("\n--- Enter Contact Details ---\n");

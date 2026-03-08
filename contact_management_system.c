@@ -65,9 +65,11 @@ void add_contact() {
     printf("\n--- Enter Contact Details ---\n");
 
     printf("Enter Name: ");
+    while(getchar() != '\n'); 
     scanf(" %[^\n]", new_contact->name);
 
     printf("Enter Phone: ");
+    while(getchar() != '\n'); 
     scanf(" %[^\n], new_contact->phone");
 
     // Linking the new contact to the front of our linked list

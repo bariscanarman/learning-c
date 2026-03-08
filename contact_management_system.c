@@ -35,7 +35,7 @@ int main() {
                break;
 
             case 2:
-               add_contact();
+               display_contacts();
                break;
 
             case 3:
@@ -75,4 +75,31 @@ void add_contact() {
     head = new_contact;
 
     printf("Succes: '%s' has been added to the phonebook!\n", new_contact->name);
+}
+
+// New Function Implementation
+void display_contacts() {
+    // Create a temporary "traveler" pointer and start it at the head
+    struct Contact *current = head;
+
+    // Safety check: Is the phonebook completely empty?
+    if (current == NULL) {
+        printf("\nError: The phonebook is currently empty.\n");
+        return;
+
+    }
+
+    printf("\n--- Contact List ---\n");
+
+    // Loop through the list until we run out of contacts (hit NULL)
+    while (current !=NULL) {
+        // Print the data inside the current node
+        printf("Name: %s | Phone: %s\n", current->name, current->phone);
+
+        // The most important step: Move forward to the next node
+        current = current->next;
+    }
+
+    printf("-------------------\n");
+
 }

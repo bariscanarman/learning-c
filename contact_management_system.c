@@ -14,7 +14,8 @@ struct Contact *head = NULL;
 
 // Function Prototypes
 void add_contact();
-void display_contacts(); // New function prototype
+void display_contacts();
+void delete_contact();
 
 // A utility funcion to safely clear the input buffer
 void clear_input_buffer() {
@@ -30,7 +31,8 @@ int main() {
         printf("\n=== Contact Management System ===\n");
         printf("1. Add a New Contact\n");
         printf("2. Display Contacts\n");
-        printf("3. Exit\n");
+        printf("3. Delete Contact\n"); // New Option
+        printf("4. Exit\n");
         printf("Enter your choice\n");
         scanf(" %d", &choice);
 
@@ -45,6 +47,10 @@ int main() {
                break;
 
             case 3:
+               delete_contact();
+               break;
+
+            case 4:
                printf("Exiting...Goodbye!\n");
                return 0;
 
@@ -93,7 +99,6 @@ void add_contact() {
     printf("Succes: '%s' has been added to the phonebook!\n", new_contact->name);
 }
 
-// New Function Implementation
 void display_contacts() {
     // Create a temporary "traveler" pointer and start it at the head
     struct Contact *current = head;
@@ -118,4 +123,21 @@ void display_contacts() {
 
     printf("-------------------\n");
 
+}
+
+// New Function Implementation
+void delete_contact() {
+    // Check if the list is empty
+    if (head == NULL) {
+        printf("\nError: The phonebook is empty. Nothing to delete!\n");
+        return;
+
+    }
+
+    char search_name[50];
+    clear_input_buffer(); // Clear the \n left by the menu's scanf
+
+    printf("\nEnter the name of the contact to delete: ");
+    fgets(search_name, sizeof(search_name), stdin);
+    search_name[strcspn(search_name, "\n")] = '\0';
 }

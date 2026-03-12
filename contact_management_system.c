@@ -140,4 +140,10 @@ void delete_contact() {
     printf("\nEnter the name of the contact to delete: ");
     fgets(search_name, sizeof(search_name), stdin);
     search_name[strcspn(search_name, "\n")] = '\0';
+
+    // Setup our two traveler pointers
+    struct Contact *current = head;
+    struct Contact *previous = NULL;
+
+    
 }

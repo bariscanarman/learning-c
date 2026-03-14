@@ -145,5 +145,25 @@ void delete_contact() {
     struct Contact *current = head;
     struct Contact *previous = NULL;
 
-    
+    // Special Case: If the contact to be deleted is the very first node (head)
+    if (strcmp(current->name, search_name) == 0) {
+        head = current -> next; // Move the head to the second node
+        free(current);          // Give the old head's memory back to the OS
+        printf("Success: '%s' has been deleted!\n", search_name);
+        return;
+    }
+
+    // If we reached the end and (NULL) and didn't find the name
+    if (current == NULL) {
+        printf("Error: Contact '%s' not found in the phonebook.\n", search_name);
+        return;
+    }
+
+    // Contact found! Now bridge the gap over 'current'
+    previous->next = current->next;
+
+    // Free the memory to prevent Memory Leaks!
+    free(current);
+
+    printf("Success: '%s' has been deleted!\n", search_name);
 }

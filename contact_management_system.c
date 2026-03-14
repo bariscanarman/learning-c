@@ -195,4 +195,8 @@ void save_contacts() {
         current = current->next; //Move to the next node in the chain
         count++;
     }
+
+    // Always close the file when you are donme
+    fclose(file_ptr);
+    printf("Success: %d contacts saved to 'phonebook_data.txt' successfully!\n", count);
 }

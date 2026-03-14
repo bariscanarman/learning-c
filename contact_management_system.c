@@ -186,4 +186,13 @@ void save_contacts() {
 
     struct Contact *current = head;
     int count = 0;
+
+    // Traverse the linked list just like we do when displaying contacts
+    while (current != NULL) {
+        // Write the data to the file using fprintf
+        fprintf(file_ptr, "%s,%s\n", current->name, current->phone);
+
+        current = current->next; //Move to the next node in the chain
+        count++;
+    }
 }

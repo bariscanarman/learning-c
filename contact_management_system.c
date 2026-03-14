@@ -16,6 +16,7 @@ struct Contact *head = NULL;
 void add_contact();
 void display_contacts();
 void delete_contact();
+void save_contacts();
 
 // A utility funcion to safely clear the input buffer
 void clear_input_buffer() {
@@ -31,8 +32,9 @@ int main() {
         printf("\n=== Contact Management System ===\n");
         printf("1. Add a New Contact\n");
         printf("2. Display Contacts\n");
-        printf("3. Delete Contact\n"); // New Option
-        printf("4. Exit\n");
+        printf("3. Delete Contact\n");
+        printf("4. Save Contacts to File\n"); // New Option
+        printf("5. Exit\n"); // Shifted Option
         printf("Enter your choice\n");
         scanf(" %d", &choice);
 
@@ -51,6 +53,10 @@ int main() {
                break;
 
             case 4:
+               save_contacts();
+               break;
+
+            case 5:
                printf("Exiting...Goodbye!\n");
                return 0;
 
@@ -125,7 +131,6 @@ void display_contacts() {
 
 }
 
-// New Function Implementation
 void delete_contact() {
     // Check if the list is empty
     if (head == NULL) {
@@ -166,4 +171,19 @@ void delete_contact() {
     free(current);
 
     printf("Success: '%s' has been deleted!\n", search_name);
+}
+
+// New Function Implementation
+void save_contacts() {
+    // Open the file in "w" (write) mode
+    // "w" mode creates the file if it doesn't exist, or overwrites it if it does.
+    FILE *file_ptr = fopen("phonebook_data.txt", "w");
+
+    if (file_ptr == NULL) {
+        printf("Error: Could not open file for saving.\n");
+        return;
+    }
+
+    struct Contact *current = head;
+    int count = 0;
 }

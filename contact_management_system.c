@@ -208,3 +208,30 @@ void save_contacts() {
     fclose(file_ptr);
     printf("Success: %d contacts saved to 'phonebook_data.txt' successfully!\n", count);
 }
+
+// New Function Implementation
+void load_contacts () {
+    // Open the file in "r" (read) mode
+    FILE *file_ptr = fopen("phonebook_data.txt", "r");
+
+    // Check if the file exists
+    if (file_ptr == NULL) {
+        printf("Notice: No existing phonebook data found. Starting fresh.\n");
+        return;
+    }
+
+    // Temporary buffers to hold the data we read from the text file
+    char temp_name[50];
+    char temp_phone[20];
+    int count = 0;
+
+    // Read tdata line by line until the end of the file
+    // %[^,] reads everything up to a coma
+    // %[^\n] reads everything up to a newline character
+    while (fscanf(file_ptr, " %[^,],%[^\n]", temp_name, temp_phone) == 2) {
+
+        // Request memory for a new contact node dynamically
+        struct Contact *new_contact = (struct Contact *)malloc(sizeof(struct Contact));
+
+    }
+}

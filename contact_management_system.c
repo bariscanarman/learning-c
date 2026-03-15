@@ -233,5 +233,23 @@ void load_contacts () {
         // Request memory for a new contact node dynamically
         struct Contact *new_contact = (struct Contact *)malloc(sizeof(struct Contact));
 
+        if (new_contact == NULL) {
+            printf("Error: Memory allocation failed during loading.\n");
+            break;
+        }
+
+        // Copy the string from our temporary buffers into the new node
+        strcpy(new_contact->name, temp_name);
+        strcpy(new_contact->phone, temp_phone);
+
+        // Link the new contact to the front of our linked list
+        new_contact->next = head;
+        head = new_contact;
+
+        count++;
     }
+
+    // Always close the file to free up system resources
+    fclose(file_ptr);
+    printf("Succes: Loaded %d contacts from 'phonebook_data.txt!\n", count);
 }

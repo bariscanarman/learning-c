@@ -17,6 +17,7 @@ void add_contact();
 void display_contacts();
 void delete_contact();
 void save_contacts();
+void load_contacts(); // New Function Prototype
 
 // A utility funcion to safely clear the input buffer
 void clear_input_buffer() {
@@ -27,6 +28,13 @@ void clear_input_buffer() {
 int main() {
 
         int choice;
+
+        // Load existing contacts from the file as soon as the program starts
+        load_contacts();
+
+        while (1) {
+            printf("\n=== Contact Management System ===\n");  // Rest of the main function remains exactly the same
+        }
 
     while (1) {
         printf("\n=== Contact Management System ===\n");

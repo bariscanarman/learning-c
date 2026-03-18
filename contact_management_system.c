@@ -2,6 +2,14 @@
 #include <stdlib.h> // Required for dynamic memory functions like malloc() and free()
 #include <string.h>
 
+// A simple XOR encryption/decryption function
+void encrypt_decrypt_file(const char *source_file, const char *dest_file, char key) {
+
+    // Open files in binary mode to process non_text content safely
+    FILE *in_file = fopen(source_file, "rb");
+    FILE *out_file = fopen(dest_file, "wb");
+}
+
 // Defining the node for our Linked List (Like a single link in a chain)
 struct Contact {
     char name[50];

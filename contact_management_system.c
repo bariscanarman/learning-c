@@ -8,6 +8,14 @@ void encrypt_decrypt_file(const char *source_file, const char *dest_file, char k
     // Open files in binary mode to process non_text content safely
     FILE *in_file = fopen(source_file, "rb");
     FILE *out_file = fopen(dest_file, "wb");
+
+    if (in_file == NULL || out_file == NULL) {
+        printf("Error: Could not open files. Make sure the source file exists.\n");
+        // Safely close any file that managed to open
+        if (in_file) fclose(in_file);
+        if (out_file) fclose(out_file);
+        return;
+    }
 }
 
 // Defining the node for our Linked List (Like a single link in a chain)
